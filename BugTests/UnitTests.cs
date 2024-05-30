@@ -1,134 +1,133 @@
-namespace BugTests
+namespace BugTests;
+
+[TestClass]
+public class UnitTests
 {
-    [TestClass]
-    public class UnitTests
+    [TestMethod]
+    public void Transition_ClosedToAssigned()
     {
-        [TestMethod]
-        public void Transition_ClosedToAssigned()
-        {
-            // Arrange
-            var bug = new Bug(Bug.State.Closed);
+        // Arrange
+        var bug = new Bug(Bug.State.Closed);
 
-            // Act
-            bug.Assign();
+        // Act
+        bug.Assign();
 
-            // Assert
-            Assert.AreEqual(Bug.State.Assigned, bug.GetState());
-        }
+        // Assert
+        Assert.AreEqual(Bug.State.Assigned, bug.GetState());
+    }
 
-        [TestMethod]
-        public void Transition_DeferedToAssigned()
-        {
-            // Arrange
-            var bug = new Bug(Bug.State.Defered);
+    [TestMethod]
+    public void Transition_DeferedToAssigned()
+    {
+        // Arrange
+        var bug = new Bug(Bug.State.Defered);
 
-            // Act
-            bug.Assign();
+        // Act
+        bug.Assign();
 
-            // Assert
-            Assert.AreEqual(Bug.State.Assigned, bug.GetState());
-        }
+        // Assert
+        Assert.AreEqual(Bug.State.Assigned, bug.GetState());
+    }
 
-        [TestMethod]
-        public void Transition_OpenToAssigned()
-        {
-            // Arrange
-            var bug = new Bug(Bug.State.Open);
+    [TestMethod]
+    public void Transition_OpenToAssigned()
+    {
+        // Arrange
+        var bug = new Bug(Bug.State.Open);
 
-            // Act
-            bug.Assign();
+        // Act
+        bug.Assign();
 
-            // Assert
-            Assert.AreEqual(Bug.State.Assigned, bug.GetState());
-        }
+        // Assert
+        Assert.AreEqual(Bug.State.Assigned, bug.GetState());
+    }
 
-        [TestMethod]
-        public void Transition_CreatedFixesToAcceptedFixes()
-        {
-            // Arrange
-            var bug = new Bug(Bug.State.CreatedFixes);
+    [TestMethod]
+    public void Transition_CreatedFixesToAcceptedFixes()
+    {
+        // Arrange
+        var bug = new Bug(Bug.State.CreatedFixes);
 
-            // Act
-            bug.AcceptFix();
+        // Act
+        bug.AcceptFix();
 
-            // Assert
-            Assert.AreEqual(Bug.State.AcceptedFixes, bug.GetState());
-        }
+        // Assert
+        Assert.AreEqual(Bug.State.AcceptedFixes, bug.GetState());
+    }
 
-        [TestMethod]
-        public void Transition_CreatedFixesToDeclinedFixes()
-        {
-            // Arrange
-            var bug = new Bug(Bug.State.CreatedFixes);
+    [TestMethod]
+    public void Transition_CreatedFixesToDeclinedFixes()
+    {
+        // Arrange
+        var bug = new Bug(Bug.State.CreatedFixes);
 
-            // Act
-            bug.DeclineFix();
+        // Act
+        bug.DeclineFix();
 
-            // Assert
-            Assert.AreEqual(Bug.State.DeclinedFixes, bug.GetState());
-        }
+        // Assert
+        Assert.AreEqual(Bug.State.DeclinedFixes, bug.GetState());
+    }
 
-        [TestMethod]
-        public void Transition_AssignedToClosed()
-        {
-            // Arrange
-            var bug = new Bug(Bug.State.Assigned);
+    [TestMethod]
+    public void Transition_AssignedToClosed()
+    {
+        // Arrange
+        var bug = new Bug(Bug.State.Assigned);
 
-            // Act
-            bug.Close();
+        // Act
+        bug.Close();
 
-            // Assert
-            Assert.AreEqual(Bug.State.Closed, bug.GetState());
-        }
+        // Assert
+        Assert.AreEqual(Bug.State.Closed, bug.GetState());
+    }
 
-        [TestMethod]
-        public void Transition_AssignedToDefered()
-        {
-            // Arrange
-            var bug = new Bug(Bug.State.Assigned);
+    [TestMethod]
+    public void Transition_AssignedToDefered()
+    {
+        // Arrange
+        var bug = new Bug(Bug.State.Assigned);
 
-            // Act
-            bug.Defer();
+        // Act
+        bug.Defer();
 
-            // Assert
-            Assert.AreEqual(Bug.State.Defered, bug.GetState());
-        }
+        // Assert
+        Assert.AreEqual(Bug.State.Defered, bug.GetState());
+    }
 
-        [TestMethod]
-        public void Transition_AcceptedFixesToClosed()
-        {
-            // Arrange
-            var bug = new Bug(Bug.State.AcceptedFixes);
+    [TestMethod]
+    public void Transition_AcceptedFixesToClosed()
+    {
+        // Arrange
+        var bug = new Bug(Bug.State.AcceptedFixes);
 
-            // Act
-            bug.Close();
+        // Act
+        bug.Close();
 
-            // Assert
-            Assert.AreEqual(Bug.State.Closed, bug.GetState());
-        }
+        // Assert
+        Assert.AreEqual(Bug.State.Closed, bug.GetState());
+    }
 
-        [TestMethod]
-        public void Transition_DeclinedFixesToCreatedFixes()
-        {
-            // Arrange
-            var bug = new Bug(Bug.State.DeclinedFixes);
+    [TestMethod]
+    public void Transition_DeclinedFixesToCreatedFixes()
+    {
+        // Arrange
+        var bug = new Bug(Bug.State.DeclinedFixes);
 
-            // Act
-            bug.CreateFix();
+        // Act
+        bug.CreateFix();
 
-            // Assert
-            Assert.AreEqual(Bug.State.CreatedFixes, bug.GetState());
-        }
+        // Assert
+        Assert.AreEqual(Bug.State.CreatedFixes, bug.GetState());
+    }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
-        public void InvalidTransition_AcceptFixFromClosed()
-        {
-            // Arrange
-            var bug = new Bug(Bug.State.Closed);
+    [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void InvalidTransition_AcceptFixFromClosed()
+    {
+        // Arrange
+        var bug = new Bug(Bug.State.Closed);
 
-            // Act
-            bug.AcceptFix();
-        }
+        // Act
+        bug.AcceptFix();
     }
 }
