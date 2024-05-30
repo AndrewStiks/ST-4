@@ -58,7 +58,7 @@ public class Bug
         sm.Fire(Trigger.AcceptFix);
         Console.WriteLine("Accept Fix");
     }
-    public State getState()
+    public State GetState()
     {
         return sm.State;
     }
@@ -74,6 +74,6 @@ public class Program
         bug.Assign();
         bug.Defer();
         bug.Assign();
-        Console.WriteLine(bug.getState());
+        Console.WriteLine(bug.GetState());
     }
 }
